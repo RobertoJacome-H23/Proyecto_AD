@@ -13,7 +13,7 @@ public class BibliotecaNegocio {
         if (nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty()) {
             dao.insertarAutor(nombre, apellido);
         } else {
-            throw new IllegalArgumentException("Nombre y apellido no pueden estar vacíos.");
+            throw new IllegalArgumentException("Nombre y apellido no pueden estar vacíos");
         }
     }
 
