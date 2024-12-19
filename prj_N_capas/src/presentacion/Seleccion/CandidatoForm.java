@@ -32,7 +32,7 @@ public class CandidatoForm extends javax.swing.JFrame {
         
         // Etiqueta y campo para la Cédula
         JLabel lblCedula = new JLabel("Cédula:");
-        lblCedula.setBounds(20, 20, 100, 25);
+        lblCedula.setBounds(21, 20, 100, 25);
         add(lblCedula);
 
         txtCedula = new JTextField();
@@ -63,18 +63,12 @@ public class CandidatoForm extends javax.swing.JFrame {
         txtArea.setBounds(20, 140, 300, 100);
         txtArea.setEditable(false);
         add(txtArea);
-        btnGuardar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                guardarCandidato();
-            }
+        btnGuardar.addActionListener((ActionEvent e) -> {
+            guardarCandidato();
         });
 
-        btnMostrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mostrarCandidatos();
-            }
+        btnMostrar.addActionListener((ActionEvent e) -> {
+            mostrarCandidatos();
         });
 
         setVisible(true);
@@ -145,7 +139,6 @@ private void guardarCandidato() {
                 if (stmt != null) stmt.close();
                 if (conn != null) conn.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
     }
