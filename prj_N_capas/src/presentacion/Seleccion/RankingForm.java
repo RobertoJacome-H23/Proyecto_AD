@@ -5,16 +5,60 @@
  */
 
 package presentacion.Seleccion;
-
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author lizet
  */
 public class RankingForm extends javax.swing.JFrame {
-
+private JTable tableRanking;
+    private JScrollPane scrollPane;
     /** Creates new form RankingForm */
     public RankingForm() {
         initComponents();
+    }
+    private void initComponents() {
+
+        // Configurar la ventana principal
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ranking de Candidatos");
+
+        // Crear una tabla con columnas de ejemplo
+        String[] columnNames = {"ID Candidato", "Nombre", "Puntaje", "Ranking"};
+        Object[][] data = {
+            {"1", "Juan Perez", "90", "1"},
+            {"2", "María López", "85", "2"},
+            {"3", "Carlos Gómez", "80", "3"}
+        };
+
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        tableRanking = new JTable(model);
+
+        // Agregar la tabla a un JScrollPane
+        scrollPane = new JScrollPane(tableRanking);
+
+        // Configurar layout
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                    .addContainerGap())
+        );
+
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addContainerGap())
+        );
+
+        pack();
     }
 
     /** This method is called from within the constructor to

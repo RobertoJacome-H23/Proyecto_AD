@@ -5,17 +5,80 @@
  */
 package presentacion.Seleccion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+import javax.swing.*;
+import static recursos.conexion.conexion.obtenerConexion;
 /**
  *
  * @author lizet
  */
 public class CandidatoForm extends javax.swing.JFrame {
-
+    private final JTextField txtCedula;
+    private final JTextField txtNombre;
+    private final JTextArea txtArea;
+    private final JButton btnGuardar;
+    private final JButton btnMostrar;
     /**
      * Creates new form CandidatoForm
      */
     public CandidatoForm() {
         initComponents();
+        setTitle("Gestión de Candidatos");
+        setLayout(null);
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        // Etiqueta y campo para la Cédula
+        JLabel lblCedula = new JLabel("Cédula:");
+        lblCedula.setBounds(20, 20, 100, 25);
+        add(lblCedula);
+
+        txtCedula = new JTextField();
+        txtCedula.setBounds(120, 20, 150, 25);
+        add(txtCedula);
+
+        // Etiqueta y campo para el Nombre
+        JLabel lblNombre = new JLabel("Nombre:");
+        lblNombre.setBounds(20, 60, 100, 25);
+        add(lblNombre);
+
+        txtNombre = new JTextField();
+        txtNombre.setBounds(120, 60, 150, 25);
+        add(txtNombre);
+
+        // Botón para guardar datos
+        btnGuardar = new JButton("Guardar");
+        btnGuardar.setBounds(20, 100, 100, 25);
+        add(btnGuardar);
+
+        // Botón para mostrar los datos
+        btnMostrar = new JButton("Mostrar");
+        btnMostrar.setBounds(150, 100, 100, 25);
+        add(btnMostrar);
+
+        // Área de texto para mostrar los datos
+        txtArea = new JTextArea();
+        txtArea.setBounds(20, 140, 300, 100);
+        txtArea.setEditable(false);
+        add(txtArea);
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                guardarCandidato();
+            }
+        });
+
+        btnMostrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarCandidatos();
+            }
+        });
+
+        setVisible(true);
+        
     }
 
     /**
@@ -43,7 +106,51 @@ public class CandidatoForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
+private void guardarCandidato() {
+    try (Connection conexion = obtenerConexion()) {
+        String sql = "INSERT INTO CANDIDATOS (CEDULA, NOMBRE) VALUES (?, ?)";
+        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setString(1, txtCedula.getText());
+            ps.setString(2, txtNombre.getText());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Candidato guardado correctamente");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
+    }
+}
+
+    // Método para mostrar todos los candidatos
+    private void mostrarCandidatos() {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        txtArea.setText(""); // Limpiar el área de texto
+        try {
+            conn = obtenerConexion();
+            stmt = conn.createStatement();
+            String sql = "SELECT cedula, nombre FROM candidatos";
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String cedula = rs.getString("cedula");
+                String nombre = rs.getString("nombre");
+                txtArea.append("Cédula: " + cedula + ", Nombre: " + nombre + "\n");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al mostrar: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+        /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -71,10 +178,8 @@ public class CandidatoForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CandidatoForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CandidatoForm().setVisible(true);
         });
     }
 

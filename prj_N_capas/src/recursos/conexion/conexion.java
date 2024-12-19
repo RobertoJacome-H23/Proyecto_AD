@@ -8,7 +8,11 @@ public class conexion {
     // Variables de conexión (mejor usar variables de entorno)
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe"; // Cambia si usas otro puerto o SID
     private static final String USER = "SYSTEM"; // Asegúrate de que la variable de entorno esté configurada
-    private static final String PASSWORD = "23889"; // Asegúrate de que la variable de entorno esté configurada
+    private static final String PASSWORD = "-Rcjh7vscr7"; // Asegúrate de que la variable de entorno esté configurada
+
+    public static Connection obtenerConexion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     // Objeto para la conexión y el log
     private Connection conn;

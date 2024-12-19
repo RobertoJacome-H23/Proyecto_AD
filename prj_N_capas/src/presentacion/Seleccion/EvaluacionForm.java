@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 package presentacion.Seleccion;
-
+import javax.swing.*;
 /**
  *
  * @author lizet
  */
 public class EvaluacionForm extends javax.swing.JFrame {
+private JLabel lblTitulo, lblId, lblCandidato, lblPuntaje;
+    private JTextField txtId, txtCandidato, txtPuntaje;
+    private JButton btnGuardar, btnCancelar;
 
     /**
      * Creates new form EvaluacionForm
@@ -17,7 +20,49 @@ public class EvaluacionForm extends javax.swing.JFrame {
     public EvaluacionForm() {
         initComponents();
     }
+private void initComponents() {
 
+        lblTitulo = new JLabel("Formulario de Evaluación");
+        lblId = new JLabel("ID Evaluación:");
+        lblCandidato = new JLabel("Candidato:");
+        lblPuntaje = new JLabel("Puntaje:");
+
+        txtId = new JTextField(20);
+        txtCandidato = new JTextField(20);
+        txtPuntaje = new JTextField(5);
+
+        btnGuardar = new JButton("Guardar");
+        btnCancelar = new JButton("Cancelar");
+
+        setTitle("Evaluación");
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Posiciones
+        lblTitulo.setBounds(130, 10, 200, 30);
+        lblId.setBounds(50, 50, 100, 20);
+        txtId.setBounds(150, 50, 200, 20);
+        lblCandidato.setBounds(50, 80, 100, 20);
+        txtCandidato.setBounds(150, 80, 200, 20);
+        lblPuntaje.setBounds(50, 110, 100, 20);
+        txtPuntaje.setBounds(150, 110, 200, 20);
+        btnGuardar.setBounds(100, 150, 100, 30);
+        btnCancelar.setBounds(220, 150, 100, 30);
+
+        // Añadir componentes
+        add(lblTitulo);
+        add(lblId);
+        add(txtId);
+        add(lblCandidato);
+        add(txtCandidato);
+        add(lblPuntaje);
+        add(txtPuntaje);
+        add(btnGuardar);
+        add(btnCancelar);
+
+        setSize(400, 250);
+        setLocationRelativeTo(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

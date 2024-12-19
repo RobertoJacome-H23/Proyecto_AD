@@ -5,19 +5,73 @@
  */
 package presentacion.Seleccion;
 
+import javax.swing.*;
 /**
  *
  * @author lizet
  */
 public class ContratoForm extends javax.swing.JFrame {
-
+    private JLabel lblTitulo, lblId, lblNombre, lblFechaInicio, lblFechaFin;
+    private JTextField txtId, txtNombre, txtFechaInicio, txtFechaFin;
+    private JButton btnGuardar, btnCancelar;
     /**
      * Creates new form ContratoForm
      */
     public ContratoForm() {
         initComponents();
     }
+    
+    private void initComponents() {
 
+        // Componentes
+        lblTitulo = new JLabel("Formulario de Contrato");
+        lblId = new JLabel("ID:");
+        lblNombre = new JLabel("Nombre:");
+        lblFechaInicio = new JLabel("Fecha Inicio:");
+        lblFechaFin = new JLabel("Fecha Fin:");
+
+        txtId = new JTextField(20);
+        txtNombre = new JTextField(20);
+        txtFechaInicio = new JTextField(10);
+        txtFechaFin = new JTextField(10);
+
+        btnGuardar = new JButton("Guardar");
+        btnCancelar = new JButton("Cancelar");
+
+        // Layout
+        setTitle("Contrato");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        // Posición de los componentes
+        lblTitulo.setBounds(150, 10, 200, 30);
+        lblId.setBounds(50, 50, 100, 20);
+        txtId.setBounds(150, 50, 200, 20);
+        lblNombre.setBounds(50, 80, 100, 20);
+        txtNombre.setBounds(150, 80, 200, 20);
+        lblFechaInicio.setBounds(50, 110, 100, 20);
+        txtFechaInicio.setBounds(150, 110, 200, 20);
+        lblFechaFin.setBounds(50, 140, 100, 20);
+        txtFechaFin.setBounds(150, 140, 200, 20);
+        btnGuardar.setBounds(100, 180, 100, 30);
+        btnCancelar.setBounds(220, 180, 100, 30);
+
+        // Añadir componentes al frame
+        add(lblTitulo);
+        add(lblId);
+        add(txtId);
+        add(lblNombre);
+        add(txtNombre);
+        add(lblFechaInicio);
+        add(txtFechaInicio);
+        add(lblFechaFin);
+        add(txtFechaFin);
+        add(btnGuardar);
+        add(btnCancelar);
+
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

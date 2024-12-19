@@ -4,20 +4,95 @@
  * and open the template in the editor.
  */
 package presentacion.Seleccion;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author lizet
  */
 public class ReporteCandidatoForm extends javax.swing.JFrame {
-
+private JTextField txtBuscar;
+    private JButton btnBuscar;
+    private JTable tableReportes;
+    private JScrollPane scrollPane;
     /**
      * Creates new form ReporteCandidatoForm
      */
     public ReporteCandidatoForm() {
         initComponents();
+        
     }
+ private void initComponents() {
 
+        // Configuración de la ventana principal
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Reporte de Candidatos");
+
+        // Crear componentes
+        JLabel lblBuscar = new JLabel("Buscar Candidato:");
+        txtBuscar = new JTextField(20);
+        btnBuscar = new JButton("Buscar");
+
+        // Tabla con columnas de reporte
+        String[] columnNames = {"ID Candidato", "Nombre", "Fecha Evaluación", "Resultado"};
+        Object[][] data = {
+            {"1", "Juan Perez", "2024-12-16", "Aprobado"},
+            {"2", "María López", "2024-12-15", "En proceso"},
+            {"3", "Carlos Gómez", "2024-12-14", "Rechazado"}
+        };
+
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        tableReportes = new JTable(model);
+        scrollPane = new JScrollPane(tableReportes);
+
+        // Configuración del botón
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                String criterio = txtBuscar.getText();
+                JOptionPane.showMessageDialog(null, "Buscando: " + criterio);
+                // Aquí se agregaría la lógica para buscar datos en la base de datos
+            }
+        });
+
+        // Diseño del formulario con GroupLayout
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblBuscar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnBuscar)
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap())
+        );
+
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblBuscar)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addContainerGap())
+        );
+
+        pack();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
